@@ -58,12 +58,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
             if(password == null || password.equals("")) {
                 password_check_flag = false;
             } else {
-                e.setPassword(
-                        EncryptUtil.getPasswordEncrypt(
-                                password,
-                                (String)this.getServletContext().getAttribute("salt")
-                                )
-                        );
+                e.setPassword(EncryptUtil.getPasswordEncrypt(password,(String)this.getServletContext().getAttribute("salt")));
             }
 
             e.setName(request.getParameter("name"));

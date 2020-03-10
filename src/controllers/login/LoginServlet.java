@@ -62,17 +62,11 @@ public class LoginServlet extends HttpServlet {
         if(code != null && !code.equals("") && plain_pass != null && !plain_pass.equals("")) {
             EntityManager em = DBUtil.createEntityManager();
 
-            String password = EncryptUtil.getPasswordEncrypt(
-                    plain_pass,
-                    (String)this.getServletContext().getAttribute("salt")
-                    );
+            String password = EncryptUtil.getPasswordEncrypt(plain_pass,(String)this.getServletContext().getAttribute("salt"));
 
             // 社員番号とパスワードが正しいかチェックする
             try {
-                e = em.createNamedQuery("checkLoginCodeAndPassword", Employee.class)
-                      .setParameter("code", code)
-                      .setParameter("pass", password)
-                      .getSingleResult();
+                e = em.createNamedQuery("checkLoginCodeAndPassword", Employee.class).setParameter("code", code).setParameter("pass", password).getSingleResult();
             } catch(NoResultException ex) {}
 
             em.close();
